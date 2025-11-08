@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R³ 정사영 뷰어</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+                "three/addons/geometries/ConvexGeometry.js": "https://unpkg.com/three@0.160.0/examples/jsm/geometries/ConvexGeometry.js"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="canvas-container"></div>
+
+    <div class="ui-panel">
+        <h1>R³ 정사영 뷰어</h1>
+
+        <div class="ui-group preset-planes">
+            <label>정다면체:</label>
+            <div id="unit-polyhedron-buttons" class="button-row">
+                <button data-type="tetrahedron">정사면체</button>
+                <button data-type="cube">정육면체</button>
+            </div>
+        </div>
+        
+        <div class="ui-group preset-planes">
+            <label>회전체 및 기타 도형:</label>
+            <div id="revolution-buttons" class="button-row">
+                <button data-type="sphere">구</button>
+                <button data-type="cone">원뿔</button>
+                <button data-type="cylinder">원기둥</button>
+                <button data-type="circle">단위 원</button>
+            </div>
+        </div>
+
+        <div class="ui-group">
+            <label for="formula-input">원하는 도형을 직접 입력하기:</label>
+            <textarea id="formula-input" rows="3" placeholder="예: [1,1,1], [-1,1,1], ..."></textarea>
+            <button id="create-formula-btn">도형 생성</button>
+            <p class="formula-help">
+                각 점은 `[x,y,z]` 형식으로 입력합니다.
+            </p>
+        </div>
+
+        <hr>
+        
+        <div class="ui-group rotation-control">
+            <label>도형/시점 이동 모드:</label>
+            <div class="button-row">
+                <button id="set-drag-mode">도형 이동 (Drag Mode)</button>
+                <button id="set-orbit-mode">시점 이동 (View Mode)</button>
+            </div>
+            <p id="mode-status" class="formula-help" style="color:#0077ff; font-weight:bold; text-align:center;">시점 이동 (View)</p>
+        </div>
+        
+        <hr>
+
+        <div class="ui-group rotation-control">
+            <label for="rotation-angle-input">도형 회전 각도 :</label>
+            <input type="number" id="rotation-angle-input" value="45" min="-360" max="360" step="1">
+            <label>지정된 축을 중심으로 회전:</label>
+            <div id="rotation-buttons" class="button-row">
+                <button data-axis="x">X축 기준</button>
+                <button data-axis="y">Y축 기준</button>
+                <button data-axis="z">Z축 기준</button>
+            </div>
+        </div>
+        
+        <hr>
+
+        <div class="ui-group">
+            <label for="plane-input">정사영 평면 방정식 (Ax + By + Cz + D = 0):</label>
+            <input type="text" id="plane-input" placeholder="예: 1, 1, 1, 0 (x+y+z=0 평면)" value="0, 0, 1, 0">
+            <button id="set-plane-btn">평면 설정 및 정사영</button>
+        </div>
+        
+        <div class="ui-group preset-planes">
+            <label>주요 좌표 평면:</label>
+            <div class="button-row">
+                <button data-plane="0, 0, 1, 0">XY 평면 (z=0)</button>
+                <button data-plane="1, 0, 0, 0">YZ 평면 (x=0)</button>
+                <button data-plane="0, 1, 0, 0">ZX 평면 (y=0)</button>
+            </div>
+        </div>
+
+        <hr>
+        <div class="ui-group rotation-control plane-rotation-group">
+            <label for="plane-rotation-angle-input">평면 회전 각도 (도 Degree):</label>
+            <input type="number" id="plane-rotation-angle-input" value="15" min="-360" max="360" step="1">
+            <label>평면을 지정된 축 중심으로 회전:</label>
+            <div id="plane-rotation-buttons" class="button-row">
+                <button data-axis="x">X축 기준</button>
+                <button data-axis="y">Y축 기준</button>
+                <button data-axis="z">Z축 기준</button>
+            </div>
+        </div>
+        
+        <button id="clear-scene-btn">화면 초기화</button>
+        
+        </p>
+    </div>
+    
+    <div id="mini-viewport-container">
+        <h2>정사영 뷰</h2>
+        <div id="mini-viewport"></div>
+    </div>
+    
+<div id="gemini-chat-container">
+        <h2>Gemini 2.5 Flash</h2>
+        <label for="gemini-question-input">질문하기:</label>
+        <textarea id="gemini-question-input" rows="3" placeholder="예: 정육면체 그려줘"></textarea>
+        <button id="gemini-submit-btn">질문하기</button>
+        <label>답변:</label>
+        <div id="gemini-answer-area">(답변이 여기에 표시됩니다)</div>
+    </div>
+    <script type="module" src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,262 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    overflow: hidden;
+}
+
+#canvas-container {
+    width: 100vw;
+    height: 100vh;
+    display: block;
+}
+
+/* UI Panel 스타일: 흰색 배경에 대비하여 */
+.ui-panel {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 350px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border: 1px solid #ddd;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto; /* 내용이 넘칠 경우 스크롤 허용 */
+}
+
+.ui-panel h1 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: #0077ff;
+    text-align: center;
+}
+
+.ui-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ui-group label {
+    font-weight: bold;
+    color: #555;
+    font-size: 0.95em;
+}
+
+input[type="text"], input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.button-row {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.ui-panel button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+    flex-grow: 1;
+    min-width: 70px;
+}
+
+/* 다면체 버튼 (파란색 계열) */
+#unit-polyhedron-buttons button {
+    background-color: #007bff;
+    color: white;
+}
+
+#unit-polyhedron-buttons button:hover {
+    background-color: #0056b3;
+}
+
+/* 회전체 버튼 (주황색 계열) */
+#revolution-buttons button {
+    background-color: #ff9800;
+    color: white;
+}
+#revolution-buttons button:hover {
+    background-color: #e68a00;
+}
+
+/* 평면 버튼 (하늘색 계열) */
+.ui-group.preset-planes > div button {
+    background-color: #5bc0de;
+    color: white;
+}
+.ui-group.preset-planes > div button:hover {
+    background-color: #31b0d5;
+}
+
+/* '도형 생성' 버튼 */
+#create-formula-btn {
+    background-color: #28a745;
+    color: white;
+}
+#create-formula-btn:hover {
+    background-color: #1e7e34;
+}
+
+/* 회전 버튼 */
+#rotation-buttons button, #plane-rotation-buttons button {
+    background-color: #6c757d;
+    color: white;
+}
+#rotation-buttons button:hover, #plane-rotation-buttons button:hover {
+    background-color: #5a6268;
+}
+
+/* 모드 버튼 */
+.mode-control button {
+    background-color: #f8f9fa;
+    color: #333;
+    border: 1px solid #ccc;
+}
+.mode-control button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+.mode-control button:hover {
+    background-color: #e2e6ea;
+}
+
+
+/* 클리어 버튼 */
+#clear-scene-btn {
+    background-color: #dc3545;
+    color: white;
+    margin-top: 10px;
+}
+#clear-scene-btn:hover {
+    background-color: #c82333;
+}
+
+
+/* 미니 뷰어 컨테이너 스타일 */
+#mini-viewport-container {
+    position: absolute;
+    bottom: 20px;
+    right: 20px; /* 💡 여기가 오른쪽 고정입니다. */
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    width: 200px;
+    height: 230px;
+    border: 1px solid #ddd;
+}
+
+#mini-viewport-container h2 {
+    font-size: 1em;
+    color: #555;
+    margin: 0 0 5px 0;
+    text-align: center;
+}
+
+#mini-viewport {
+    width: 200px;
+    height: 200px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8; /* 미니 뷰어 배경색 */
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #ddd;
+    margin: 10px 0;
+}
+
+
+/* ====================================================== */
+/* =========== NEW: Gemini 채팅 인터페이스 스타일 ========== */
+/* ====================================================== */
+
+#gemini-chat-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid #ddd;
+}
+
+#gemini-chat-container h2 {
+    margin-top: 0;
+    font-size: 1.2em;
+    color: #0077ff;
+    text-align: center;
+    font-weight: bold;
+}
+
+#gemini-chat-container label {
+    font-weight: bold;
+    color: #555;
+    font-size: 0.95em;
+    margin-bottom: -5px; 
+}
+
+#gemini-chat-container textarea {
+    width: 100%;
+    box-sizing: border-box; 
+    min-height: 60px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 0.95em;
+    font-family: inherit;
+}
+
+/* '질문하기' 버튼 스타일 */
+#gemini-submit-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+    background-color: #28a745;
+    color: white;
+}
+
+#gemini-submit-btn:hover {
+    background-color: #1e7e34;
+}
+
+/* 답변이 표시될 영역 */
+#gemini-answer-area {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 50px;
+    background-color: #f8f8f8; 
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 0.9em;
+    color: #333;
+    overflow-y: auto; 
+    max-height: 150px;
+}
